@@ -201,6 +201,7 @@ class _WidgetTableState extends State<WidgetTable> {
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
+                  key: const Key('dealButton'),
                   onPressed: () => context.read<PokerBloc>().add(
                         PokerEventDealCards(),
                       ),
@@ -229,6 +230,7 @@ class _WidgetTableState extends State<WidgetTable> {
                         ),
                         const SizedBox(height: 8),
                         ElevatedButton(
+                          key: const Key('cardsDealtNextButton'),
                           onPressed: () => context.read<PokerBloc>().add(
                                 PokerEventRevealCards(),
                               ),
@@ -262,6 +264,7 @@ class _WidgetTableState extends State<WidgetTable> {
                         ),
                         const SizedBox(height: 8),
                         ElevatedButton(
+                          key: const Key('cardsRevealedNextButton'),
                           onPressed: () {
                             confetti.stop();
                             context.read<PokerBloc>().add(

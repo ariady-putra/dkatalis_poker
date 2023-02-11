@@ -25,6 +25,7 @@ class _WidgetCardState extends State<WidgetCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      key: const Key('playingCard'),
       color: widget.faceUp ? Colors.white : Colors.blue,
       elevation: 4,
       child: SizedBox(
