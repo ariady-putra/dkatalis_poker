@@ -30,7 +30,7 @@ class PokerBloc extends Bloc<PokerEvent, PokerState> {
     }
 
     emit(
-      PokerStateDealCards(table: state.table),
+      PokerStateCardsDealt(table: state.table),
     );
   }
 
@@ -51,7 +51,7 @@ class PokerBloc extends Bloc<PokerEvent, PokerState> {
     state.table.players[winnerIndex].win();
 
     emit(
-      PokerStateRevealCards(
+      PokerStateCardsRevealed(
         table: state.table,
         winner: winner,
         winBy: PokerRank(cards: winner.hand.cards).toString(),

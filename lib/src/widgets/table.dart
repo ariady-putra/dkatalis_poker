@@ -16,15 +16,15 @@ class WidgetTable extends StatefulWidget {
 }
 
 class _WidgetTableState extends State<WidgetTable> {
-  final ConfettiController confetti = ConfettiController();
+  final ConfettiController _confetti = ConfettiController();
 
   @override
   void dispose() {
-    confetti.dispose();
+    _confetti.dispose();
     super.dispose();
   }
 
-  String _formatWinning(PokerStateRevealCards state) {
+  String _formatWinning(PokerStateCardsRevealed state) {
     String winnerName = state.winner.name;
     if (winnerName == 'You') {
       winnerName = 'You win';
@@ -38,8 +38,8 @@ class _WidgetTableState extends State<WidgetTable> {
   Widget build(BuildContext context) {
     return BlocBuilder<PokerBloc, PokerState>(
       builder: (context, state) {
-        if (state is PokerStateRevealCards && state.winner.name == 'You') {
-          confetti.play();
+        if (state is PokerStateCardsRevealed && state.winner.name == 'You') {
+          _confetti.play();
         }
         return Stack(
           children: [
@@ -190,7 +190,7 @@ class _WidgetTableState extends State<WidgetTable> {
             // Blast confetti when the user wins
             Center(
               child: ConfettiWidget(
-                confettiController: confetti,
+                confettiController: _confetti,
                 blastDirection: -pi * .5,
               ),
             ),
@@ -212,7 +212,7 @@ class _WidgetTableState extends State<WidgetTable> {
               ),
 
             // Cards dealts, next: reveal cards
-            if (state is PokerStateDealCards)
+            if (state is PokerStateCardsDealt)
               Center(
                 child: Card(
                   color: Colors.white.withOpacity(.75),
@@ -245,7 +245,7 @@ class _WidgetTableState extends State<WidgetTable> {
               ),
 
             // Cards revealed, next: next round
-            if (state is PokerStateRevealCards)
+            if (state is PokerStateCardsRevealed)
               Center(
                 child: Card(
                   color: Colors.white.withOpacity(.75),
@@ -264,7 +264,7 @@ class _WidgetTableState extends State<WidgetTable> {
                         ElevatedButton(
                           key: const Key('cardsRevealedNextButton'),
                           onPressed: () {
-                            confetti.stop();
+                            _confetti.stop();
                             context.read<PokerBloc>().add(
                                   PokerEventNextRound(),
                                 );

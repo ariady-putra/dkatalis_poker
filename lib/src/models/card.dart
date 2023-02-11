@@ -49,9 +49,11 @@ class PokerCard {
       case CardSuit.spades:
       case CardSuit.clubs:
         return Colors.black;
-      case CardSuit.diamonds:
+
       case CardSuit.hearts:
+      case CardSuit.diamonds:
         return Colors.redAccent;
+
       default:
         return Colors.transparent;
     }

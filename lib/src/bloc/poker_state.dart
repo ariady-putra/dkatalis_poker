@@ -10,15 +10,15 @@ class PokerStateDeckReady extends PokerState {
   const PokerStateDeckReady({required super.table});
 }
 
-class PokerStateDealCards extends PokerState {
-  const PokerStateDealCards({required super.table});
+class PokerStateCardsDealt extends PokerState {
+  const PokerStateCardsDealt({required super.table});
 }
 
-class PokerStateRevealCards extends PokerState {
+class PokerStateCardsRevealed extends PokerState {
   final PokerPlayer winner;
   final String winBy;
 
-  const PokerStateRevealCards({
+  const PokerStateCardsRevealed({
     required super.table,
     required this.winner,
     required this.winBy,

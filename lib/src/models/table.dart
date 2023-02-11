@@ -10,12 +10,14 @@ class PokerTable {
 
   PokerTable() {
     deck.cards.shuffle();
-    players.addAll([
-      PokerPlayer(name: 'You'),
-      PokerPlayer(name: 'Player 2'),
-      PokerPlayer(name: 'Player 3'),
-      PokerPlayer(name: 'Player 4'),
-    ]);
+    players.addAll(
+      [
+        PokerPlayer(name: 'You'),
+        PokerPlayer(name: 'Player 2'),
+        PokerPlayer(name: 'Player 3'),
+        PokerPlayer(name: 'Player 4'),
+      ],
+    );
 
     // Always show Your hand
     players[0].hand.showHand();
