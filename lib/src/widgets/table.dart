@@ -44,8 +44,7 @@ class _WidgetTableState extends State<WidgetTable> {
         return Stack(
           children: [
             // Deck
-            Align(
-              alignment: Alignment.center,
+            Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -198,8 +197,7 @@ class _WidgetTableState extends State<WidgetTable> {
 
             // Deck ready, next: deal cards
             if (state is PokerStateDeckReady)
-              Align(
-                alignment: Alignment.center,
+              Center(
                 child: ElevatedButton(
                   key: const Key('dealButton'),
                   onPressed: () => context.read<PokerBloc>().add(
