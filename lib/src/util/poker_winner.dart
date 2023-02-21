@@ -13,8 +13,8 @@ class PokerWinner {
         PokerRank aPokerRank = PokerRank(cards: a.hand.cards);
         PokerRank bPokerRank = PokerRank(cards: b.hand.cards);
 
-        final int aRank = aPokerRank.rank();
-        final int bRank = bPokerRank.rank();
+        final int aRank = aPokerRank.rank;
+        final int bRank = bPokerRank.rank;
 
         int score = bRank - aRank;
         if (score != 0) return score;

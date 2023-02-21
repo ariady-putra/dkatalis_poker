@@ -14,13 +14,17 @@ import '../models/card.dart';
 */
 class PokerRank {
   final List<PokerCard> cards;
+  late int rank;
 
-  PokerRank({required this.cards});
+  PokerRank({required this.cards}) {
+    _sort();
+    rank = _rank();
+  }
 
   CardSuit? suit;
   int? value;
 
-  int rank() {
+  int _rank() {
     if (isRoyalFlush()) return 9;
     if (isStraightFlush()) return 8;
     if (isFourOfaKind()) return 7;
@@ -39,7 +43,7 @@ class PokerRank {
 
   @override
   String toString() {
-    switch (rank()) {
+    switch (rank) {
       case 9:
         return 'Royal Flush';
       case 8:
@@ -68,9 +72,15 @@ class PokerRank {
 
   void _sort() => cards.sort(
         (a, b) {
-          final faceA = CardFace.strToInt(a.face);
-          final faceB = CardFace.strToInt(b.face);
-          return faceA.compareTo(faceB);
+          final aFace = CardFace.strToInt(a.face);
+          final bFace = CardFace.strToInt(b.face);
+
+          int score = aFace.compareTo(bFace);
+          if (score != 0) return score;
+
+          final aSuit = suitToInt(suit: a.suit);
+          final bSuit = suitToInt(suit: b.suit);
+          return aSuit.compareTo(bSuit);
         },
       );
 
@@ -99,8 +109,8 @@ class PokerRank {
     return CardSuit.diamonds;
   }
 
-  int suitToInt() {
-    switch (suit) {
+  int suitToInt({CardSuit? suit}) {
+    switch (suit ??= this.suit) {
       case CardSuit.spades:
         return 4;
       case CardSuit.hearts:
@@ -152,8 +162,6 @@ class PokerRank {
   }
 
   bool isStraightFlush() {
-    _sort();
-
     suit = cards.first.suit;
     int start = CardFace.strToInt(cards.first.face);
     for (PokerCard card in cards) {
@@ -223,8 +231,6 @@ class PokerRank {
   }
 
   bool isFlush() {
-    _sort();
-
     suit = cards.first.suit;
 
     value = cards.first.face == 'Ace' ? 14 : CardFace.strToInt(cards.last.face);
@@ -238,8 +244,6 @@ class PokerRank {
   }
 
   bool isStraight() {
-    _sort();
-
     // Low Ace Straight
     if (cards[0].face == 'Ace' &&
         cards[1].face == '2' &&
@@ -293,8 +297,6 @@ class PokerRank {
   }
 
   bool isTwoPairs() {
-    _sort();
-
     // First pair
     bool has2 = false;
     String? face2;
