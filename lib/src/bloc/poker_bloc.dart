@@ -43,12 +43,7 @@ class PokerBloc extends Bloc<PokerEvent, PokerState> {
     // Determine winner
     final pokerWinner = PokerWinner(players: state.table.players);
     final winner = pokerWinner.getWinner();
-
-    // Increment player's win count
-    final winnerIndex = state.table.players.indexWhere(
-      (player) => player.name == winner.name,
-    );
-    state.table.players[winnerIndex].win();
+    winner.win();
 
     emit(
       PokerStateCardsRevealed(
