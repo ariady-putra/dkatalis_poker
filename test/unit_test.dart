@@ -372,7 +372,7 @@ void main() {
       for (int i = 0; i < 10; i++) {
         // Action
         final rank = PokerRank(cards: hands[i]);
-        final ranking = rank.rank();
+        final ranking = rank.rank;
         final rankSuit = rank.suit;
         final rankValue = rank.value;
 
