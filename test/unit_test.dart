@@ -1,3 +1,5 @@
+import 'package:bloc_test/bloc_test.dart';
+import 'package:dkatalis_poker/src/bloc/poker_bloc.dart';
 import 'package:dkatalis_poker/src/models/card.dart';
 import 'package:dkatalis_poker/src/models/deck.dart';
 import 'package:dkatalis_poker/src/models/hand.dart';
@@ -782,5 +784,37 @@ void main() {
       expect(winner.name, 'Player 1');
       expect('${PokerRank(cards: winner.hand.cards)}', 'K♣');
     });
+  });
+
+  // BLOC
+  group('BLOC Tests', () {
+    late PokerBloc pokerBloc;
+
+    setUp(
+      () => pokerBloc = PokerBloc(),
+    );
+
+    blocTest<PokerBloc, PokerState>(
+      '''emits [
+        PokerStateCardsDealt,
+        PokerStateCardsRevealed,
+        PokerStateDeckReady,
+      ]
+      when
+        PokerEventDealCards,
+        PokerEventRevealCards,
+        PokerEventNextRound,
+      are added.''',
+      build: () => pokerBloc,
+      act: (bloc) => bloc
+        ..add(PokerEventDealCards())
+        ..add(PokerEventRevealCards())
+        ..add(PokerEventNextRound()),
+      expect: () => [
+        isA<PokerStateCardsDealt>(),
+        isA<PokerStateCardsRevealed>(),
+        isA<PokerStateDeckReady>(),
+      ],
+    );
   });
 }

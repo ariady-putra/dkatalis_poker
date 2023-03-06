@@ -42,6 +42,7 @@ dependencies:
   universal_platform: ^1.0.0+1
 
 dev_dependencies:
+  bloc_test: ^9.1.1
   integration_test:
     sdk: flutter
   flutter_test:
